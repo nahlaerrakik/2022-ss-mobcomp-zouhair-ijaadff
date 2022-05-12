@@ -1,40 +1,37 @@
 package de.hsfl.team.campusflag
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import de.hsfl.team.campusflag.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
 
     //globale initialisierung
-    private lateinit var rootView:View
+
+    private var _binding: FragmentStartBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        rootView =  inflater.inflate(R.layout.fragment_start, container, false)
+    ): View {
 
-        // Navigation zu gewünschten Ziel bzw. Ansichten
-        val navController = findNavController()
+        _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-        // Host Button initialisieren
-        var btnHostGame: Button = rootView.findViewById(R.id.host_btn_start)
-        btnHostGame.setOnClickListener {
-            navController.navigate(R.id.action_start_to_create)
+        // Host Button
+        binding.hostBtnStart.setOnClickListener {
+            findNavController().navigate((R.id.action_start_to_create))
         }
-        // Join Button initialisieren
-        var btnJoinGame: Button = rootView.findViewById(R.id.join_btn_start)
-        btnJoinGame.setOnClickListener {
-            navController.navigate(R.id.action_start_to_join)
+
+        // Join Button
+        binding.joinBtnStart.setOnClickListener {
+            findNavController().navigate((R.id.action_start_to_join))
         }
-        return rootView
+
+        return binding.root
     }
-
-
 }
