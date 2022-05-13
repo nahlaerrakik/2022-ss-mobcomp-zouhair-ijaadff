@@ -37,9 +37,6 @@ class ViewModel (application: Application) : AndroidViewModel(application) {
         val game = host.value?.let {
             Game(
                 gameId.value,
-                null,
-                null,
-                null,
                 it,
                 null,
                 null,
@@ -48,8 +45,8 @@ class ViewModel (application: Application) : AndroidViewModel(application) {
 
         if (game != null) {
             host.value?.let {
-                apiRepository.postGame(game, it) {
-                    gameId.value = it.game
+                apiRepository.postGame(it) {
+                    gameId.value = it.gameId
                     host.value = it.host
                 }
             }
@@ -81,9 +78,6 @@ class ViewModel (application: Application) : AndroidViewModel(application) {
         val game = host.value?.let {
             Game(
                 gameId.value,
-                null,
-                null,
-                null,
                 host.value!!,
                 null,
                 null,

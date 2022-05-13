@@ -20,7 +20,7 @@ class ApiRepository(application: Application) {
 
     private val requestQueue = Volley.newRequestQueue(application)
 
-    fun postGame(game: Game, player: Player, callback: (Game) -> (Unit)) {
+    fun postGame(player: Player, callback: (Game) -> (Unit)) {
 
         val url = "https://ctf.letorbi.de/game/register"
 
@@ -42,9 +42,6 @@ class ApiRepository(application: Application) {
                 callback(
                     Game(
                         it.getInt("game"),
-                        it.getString("token"),
-                        null,
-                        null,
                         Player(
                             it.getInt("game"),
                             it.getString("name"),
@@ -73,7 +70,7 @@ class ApiRepository(application: Application) {
 
         try {
             //input the API parameters
-            `object`.put("game", player.game)
+            `object`.put("game", player.gameId)
             `object`.put("name", player.name)
             `object`.put("team", 0)
         } catch (e: JSONException) {
@@ -112,7 +109,7 @@ class ApiRepository(application: Application) {
 
         val `object` = JSONObject(
             mapOf(
-                "game" to game.game,
+                "game" to game.gameId,
                 "auth" to mapOf(
                     "name" to game.host.name,
                     "token" to game.host.token
@@ -126,9 +123,6 @@ class ApiRepository(application: Application) {
                 callback(
                     Game(
                         it.getInt("game"),
-                        null,
-                        null,
-                        null,
                         game.host,
                         it.getInt("state"),
                         it.getJSONArray("players")
