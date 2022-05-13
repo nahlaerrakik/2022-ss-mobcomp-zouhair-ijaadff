@@ -136,11 +136,7 @@ class ApiRepository(application: Application) {
                 )
             },
             {
-                    error -> // error listener
-                val msg  = error.networkResponse
-                if (msg.statusCode == 409){
-                    Log.e("ERRRRRRRO", error.networkResponse.data.decodeToString(),error)
-                }
+                Log.e("ApiRepository", it.toString())
             }
         )
         requestQueue.add(req)
