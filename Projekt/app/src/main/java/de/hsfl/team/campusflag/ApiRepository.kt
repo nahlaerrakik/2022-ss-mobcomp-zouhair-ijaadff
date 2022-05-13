@@ -96,7 +96,10 @@ class ApiRepository(application: Application) {
                 )
             },
             {
-                Log.e("ApiRepository", it.toString())
+                Log.e("ApiRepository", it.networkResponse.data.decodeToString())
+                callback(
+                    Player(null, null, null, null,null)
+                )
             }
         )
 
@@ -133,7 +136,11 @@ class ApiRepository(application: Application) {
                 )
             },
             {
-                Log.e("ApiRepository", it.toString())
+                    error -> // error listener
+                val msg  = error.networkResponse
+                if (msg.statusCode == 409){
+                    Log.e("ERRRRRRRO", error.networkResponse.data.decodeToString(),error)
+                }
             }
         )
         requestQueue.add(req)

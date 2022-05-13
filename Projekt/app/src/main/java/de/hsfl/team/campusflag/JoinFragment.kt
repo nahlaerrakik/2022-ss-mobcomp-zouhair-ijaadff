@@ -1,6 +1,7 @@
 package de.hsfl.team.campusflag
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +29,11 @@ class JoinFragment : Fragment() {
         binding.viewModel = mainViewModel
 
         binding.joinGameBtnJoin.setOnClickListener {
-            mainViewModel.joinGame()
-            findNavController().navigate(R.id.action_join_to_lobbyy)
+            mainViewModel.joinGame { isError ->
+                if (!isError){
+                    findNavController().navigate(R.id.action_join_to_lobbyy)
+                }
+            }
         }
 
         binding.cancelBtnJoin.setOnClickListener {
